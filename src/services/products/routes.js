@@ -2,16 +2,16 @@ import { Router } from "express";
 
 import * as productHandeler from "./handlers.js";
 
-const route = Router();
+const productsRoutes = Router();
 
-route.get("/", productHandeler.list);
+productsRoutes.get("/", productHandeler.list);
 
-route.get("/:author_id", productHandeler.single);
+productsRoutes.get("/:product_id", productHandeler.single);
 
-route.put("/:author_id", productHandeler.update);
+productsRoutes.put("/:product_id", productHandeler.update);
 
-route.delete("/:author_id", productHandeler.deleteproduct);
+productsRoutes.delete("/:product_id", productHandeler.deleteproduct);
 
-route.post("/", productHandeler.create);
+productsRoutes.post("/", productHandeler.create);
 
-export default route;
+export default productsRoutes;

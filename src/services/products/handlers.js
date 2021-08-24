@@ -11,10 +11,10 @@ export const list = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
 	try {
-		const { name, last_name, avatar } = req.body;
+		const {name,description ,brand,image_url,price,category} = req.body;
 		const product = await db.query(
-			`INSERT INTO products(name,last_name,avatar) VALUES('${name}','${last_name}','${avatar}') RETURNING *;`
-		);
+		    `INSERT INTO products(name,description,brand,image_url,price,category) VALUES('${name}','${description}','${brand}','${image_url}',${price},'${category}')  RETURNING *;`
+			);
 		res.send(product.rows[0]);
 	} catch (error) {
 		res.status(500).send(error);
@@ -25,7 +25,14 @@ export const single = async (req, res, next) => {
 	try {
 		const { product_id } = req.params;
 		const products = await db.query(
-			`SELECT * FROM products WHERE product_id=${product_id};`
+			`SELECT products.product_id, products.name, products.description, products.brand, products.image_url,
+			products.price,products.category,
+			reviews.comment,reviews.rate 
+			from products 
+			inner join reviews 
+			on 
+			products.product_id=reviews.product_id 
+			where products.product_id=${product_id};`
 		);
 		const [found, ...rest] = products.rows;
 
@@ -38,14 +45,16 @@ export const single = async (req, res, next) => {
 export const update = async (req, res, next) => {
 	try {
 		const { product_id } = req.params;
-		const { name, last_name, avatar } = req.body;
+		const { name,description,brand,image_url,price,category } = req.body;
 		const products = await db.query(
-			`UPDATE products
-			 SET name ='${name}',
-			 last_name = '${last_name}',
-			 avatar = '${avatar}',
-			 updated_at = NOW()
-			 WHERE product_id=${product_id} RETURNING *;`
+			`UPDATE products 
+			SET 
+			name='${name}', 
+			description='${description}',
+			brand='${brand}',
+			image_url='${image_url}',
+			price=${price},
+			category='${category}' WHERE product_id=${product_id} RETURNING *;`
 		);
 		const [found, ...rest] = products.rows;
 		res.status(found ? 200 : 400).send(found);
@@ -57,7 +66,6 @@ export const update = async (req, res, next) => {
 export const deleteproduct = async (req, res, next) => {
 	try {
 		const { product_id } = req.params;
-		const { name, last_name, avatar } = req.body;
 		const dbResult = await db.query(
 			`DELETE FROM products
 			 WHERE product_id=${product_id};`
