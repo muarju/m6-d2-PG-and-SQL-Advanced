@@ -25,14 +25,7 @@ export const single = async (req, res, next) => {
 	try {
 		const { product_id } = req.params;
 		const products = await db.query(
-			`SELECT products.product_id, products.name, products.description, products.brand, products.image_url,
-			products.price,products.category,
-			reviews.comment,reviews.rate 
-			from products 
-			inner join reviews 
-			on 
-			products.product_id=reviews.product_id 
-			where products.product_id=${product_id};`
+			`SELECT * FROM products WHERE product_id=${product_id};`
 		);
 		const [found, ...rest] = products.rows;
 
