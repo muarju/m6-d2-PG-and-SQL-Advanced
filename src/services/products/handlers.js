@@ -1,5 +1,7 @@
 import db from "../../db/connection.js";
 
+
+
 export const list = async (req, res, next) => {
 	try {
 		const products = await db.query(`SELECT * FROM products`);
