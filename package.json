@@ -1,0 +1,33 @@
+{
+  "name": "m6-d2-pg-and-sql-advanced",
+  "version": "1.0.0",
+  "description": "Module 6 - D2 - PG & SQL Advanced",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js -r dotenv/config ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muarju/m6-d2-PG-and-SQL-Advanced.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muarju/m6-d2-PG-and-SQL-Advanced/issues"
+  },
+  "homepage": "https://github.com/muarju/m6-d2-PG-and-SQL-Advanced#readme",
+  "dependencies": {
+    "cros": "^1.0.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "fs-extra": "^10.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.12"
+  }
+}
